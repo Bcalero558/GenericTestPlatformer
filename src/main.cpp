@@ -34,22 +34,25 @@ bool platform_create_window(char* title, int width, int height)
         return false;
     }
     // WINDOWS CREATION DOCCUMENTATION - https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindowexa
-
+    int dwStyle = WS_OVERLAPPEDWINDOW;
     HWND window = CreateWindowExA(
         0,
-        title,
-        title,
-        WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-        CW_USEDEFAULT, CW_USEDEFAULT,
-        width, height,
-        0,
-        0,
-        instance,
-        0
-    );
-
+        title,// name from wc.lpszClassName
+        title, // window title
+        dwStyle, // window style
+        100, 100, // starting x and y position
+        width, height, // width and height of window
+        NULL, 
+        NULL, 
+        instance, //lpParam
+        NULL );
+        
+   if (window == NULL) {
+        return false;
+    }
+    ShowWindow(window, SW_SHOW);
+    return true;
 }
-
 
 #endif
 
